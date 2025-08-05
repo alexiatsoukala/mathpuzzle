@@ -818,16 +818,31 @@ function genNumberTheoryHard() {
   };
 }
 function genLogicHard() {
-  // "Yesterday's tomorrow is Thursday, what day is today?" Thursday
-  let days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-  let idx = randInt(0,6);
-  let today = days[idx];
+  // "Three friends — Alex, Blake, and Casey — each scored a different amount: 60, 70, and 80."
+  // - The person who scored 80 didn’t study.
+  // - Casey scored more than Alex.
+  // - Blake studied.
+  // Who scored 80? → Alex
+
+  let names = ["Alex", "Blake", "Casey"];
+  let scores = [60, 70, 80];
+  
+  // We'll use a fixed correct answer for consistency (Alex has 80)
+  let answer = "Alex";
+
   return {
-    question: `If yesterday's tomorrow is ${today}, what day is today?`,
-    answer: today,
+    question: `Three students — ${names.join(", ")} — each received a different score: 60, 70, and 80.\n` +
+             `- The person who scored 80 didn’t study.\n` +
+             `- Casey scored higher than Alex.\n` +
+             `- Blake studied.\n\n` +
+             `Who scored 80?`,
+    answer: answer,
     latex: false,
-    hint: "Yesterday's tomorrow is today!",
+    hint: "Blake can't have 80 if he studied. Who's left?",
     type: "logic"
+  };
+}
+
   };
 }
 function genGeometryHard() {
