@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Math Puzzle Game</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+    .puzzle-box { border: 2px solid #333; border-radius: 8px; padding: 30px; width: 300px; text-align: center; }
+    input[type="number"] { padding: 5px; font-size: 1.2em; width: 80px; }
+    button { padding: 5px 15px; font-size: 1.1em; margin-top: 10px; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="puzzle-box">
+    <h2>Math Puzzle</h2>
+    <div id="puzzle"></div>
+    <form id="answerForm">
+      <input type="number" id="answer" autocomplete="off" required />
+      <button type="submit">Check</button>
+    </form>
+    <div class="result" id="result"></div>
+    <button onclick="nextPuzzle()">Next Puzzle</button>
+  </div>
+  <script>
+    // Define your puzzles here!
+    const puzzles = [
+      {
+        question: "2, 4, 6, 8, ? (What comes next?)",
+        answer: 10
+      },
+      {
+        question: "What is 7 x 6?",
+        answer: 42
+      },
+      {
+        question: "12 / 3 = ?",
+        answer: 4
+      },
+      {
+        question: "Fill in the blank: 3, 6, 9, 12, ?",
+        answer: 15
+      }
+    ];
+
+    let current = 0;
+
+    function renderPuzzle() {
+      document.getElementById('puzzle').textContent = puzzles[current].question;
+      document.getElementById('answer').value = '';
+      document.getElementById('result').textContent = '';
+    }
+
+    document.getElementById('answerForm').onsubmit = function(e) {
+      e.preventDefault();
+      const userAnswer = Number(document.getElementById('answer').value);
+      if (userAnswer === puzzles[current].answer) {
+        document.getElementById('result').textContent = "✅ Correct!";
+        document.getElementById('result').style.color = "green";
+      } else {
+        document.getElementById('result').textContent = "❌ Try again!";
+        document.getElementById('result').style.color = "red";
+      }
+    };
+
+    function nextPuzzle() {
+      current = (current + 1) % puzzles.length;
+      renderPuzzle();
+    }
+
+    renderPuzzle();
+  </script>
+</body>
+</html>
